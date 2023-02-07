@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout ') {
+            steps {
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Elieno', url: 'https://github.com/Elieno/flaskwebapp.git']])
+            }
+        }
+        stage('Build'){
+            steps {
+                git branch: 'main', credentialsId: 'Elieno', url: 'https://github.com/Elieno/flaskwebapp.git'
+                sh 'python3 flaskwebapp.py &'
+            }
+        }
+    }
+}
